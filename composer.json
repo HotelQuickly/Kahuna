@@ -1,5 +1,8 @@
 {
   "name": "hotel-quickly/kahuna",
+  "type": "library",
+  "keywords": ["php", "kahuna"],
+  "homepage": "http://www.HotelQuickly.com",
   "authors": [
     {
       "name": "Jakapun Kehachindawat",
