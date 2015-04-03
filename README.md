@@ -1,4 +1,4 @@
-# Kahuna API
+# Kahuna
 
 ### Installation
 
@@ -33,6 +33,11 @@ $response = $this->kahunaRequestFactory->makeRequest($request);
 ### How to add new Request
 - 1) Create new file and extends from `Request` abstract class
 - 2) Add new method to `RequestFactory` class
+
+### How to test
+```sh
+$ ./vendor/bin/tester tests/
+```
 
 ### The MIT License (MIT)
 Copyright (c) 2014 Hotel Quickly Ltd.
