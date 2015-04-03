@@ -1,0 +1,20 @@
+{
+  "name": "HotelQuickly/Kahuna",
+  "authors": [
+    {
+      "name": "Jakapun Kehachindawat",
+      "email": "jakapun.kehachindawat@hotelquickly.com"
+    }
+  ],
+  "require": {
+    "nette/nette": "~2.3"
+  },
+  "require-dev": {
+    "nette/tester": "~1.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "HQ\\Kahuna\\": "src/"
+    }
+  }
+}

@@ -1,0 +1,2 @@
+services:
+	- HQ\Kahuna\RequestFactory(%kahuna%)
