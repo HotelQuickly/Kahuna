@@ -1,0 +1,6 @@
+parameters:
+	kahuna:
+		apiBaseUrl: https://tap-nexus.appspot.com/api
+		authUsername: abc123 #sandbox
+		authPassword: abc123 #sandbox
+		isSandbox: true

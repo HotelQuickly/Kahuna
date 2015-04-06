@@ -1,9 +1,6 @@
 <?php
 
 namespace HQ\Kahuna;
-use HQ\Kahuna\Request\KahunaLogs;
-use HQ\Kahuna\Request\Push;
-use HQ\Kahuna\Request\UserAttributes;
 
 /**
  * Class RequestFactory
@@ -12,19 +9,18 @@ use HQ\Kahuna\Request\UserAttributes;
  */
 class RequestFactory extends Core {
 
-	public function createPushRequest()
-	{
-		return new Push();
-	}
+	// These const are Request Names
+	const PUSH = 'Push';
+	const USER_ATTRIBUTES = 'UserAttributes';
+	const KAHUNA_LOGS = 'KahunaLogs';
 
-	public function createUserAttributesRequest()
+	/**
+	 * @param $requestName
+	 * @return mixed
+	 */
+	public function create($requestName)
 	{
-		return new UserAttributes();
+		$class = __NAMESPACE__ . '\Request\\' . $requestName;
+		return new $class();
 	}
-
-	public function createKahunaLogsRequest()
-	{
-		return new KahunaLogs();
-	}
-
 }

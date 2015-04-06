@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use HQ\Kahuna\RequestFactory;
 use Nette;
 use Tester;
 use Tester\Assert;
@@ -18,12 +19,13 @@ class UserAttributesTest extends BaseTestCase
 
 	public function setUp()
 	{
-		$this->kahunaRequestFactory = $this->container->getByType('HQ\Kahuna\RequestFactory');
+		$config = $this->container->getParameters();
+		$this->kahunaRequestFactory = new RequestFactory($config['kahuna']);
 	}
 
 	public function testUpdateUserAttributes()
 	{
-		$request = $this->kahunaRequestFactory->createUserAttributesRequest()
+		$request = $this->kahunaRequestFactory->create(RequestFactory::USER_ATTRIBUTES)
 			->addPayload(
 				0,
 				'geemney@hotmail.com',
