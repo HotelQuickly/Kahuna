@@ -1,7 +1,6 @@
 <?php
 
 namespace HQ\Kahuna;
-use HQ\Kahuna\Request\Request;
 use HQ\Kahuna\Request\RequestAbstract;
 
 /**
@@ -14,7 +13,7 @@ class Sender {
 	/**
 	 * @param RequestAbstract $request
 	 * @return mixed
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function send(RequestAbstract $request)
 	{
@@ -36,20 +35,26 @@ class Sender {
 	/**
 	 * @param $response
 	 * @return mixed
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private function handleResponse($response)
 	{
 		$decoded = json_decode($response);
 
-		if (!is_array($decoded) OR empty($decoded)) {
-			$exception = new Exception('Unknown response from Kahuna', 901, $decoded);
-			throw $exception;
+		if (empty($decoded)) {
+			throw new \Exception('Unknown response from Kahuna: '. $decoded);
 		}
 
-		if ($decoded[0]->success == false) {
-			$exception = new Exception($decoded[0]->error, $decoded[0]->error_code, isset($decoded[0]->error_detail) ? $decoded[0]->error_detail : null);
-			throw $exception;
+		if (isset($decoded->success) AND $decoded->success == false) {
+			$errorMsg = $decoded->error;
+			$errorMsg .= (isset($decoded->error_detail) ? ', '.$decoded->error_detail : '');
+			throw new \Exception($errorMsg, $decoded->error_code);
+		}
+
+		if (isset($decoded[0]->success) AND $decoded[0]->success == false) {
+			$errorMsg = $decoded[0]->error;
+			$errorMsg .= (isset($decoded[0]->error_detail) ? ', '.$decoded[0]->error_detail : '');
+			throw new \Exception($errorMsg, $decoded[0]->error_code);
 		}
 
 		return $decoded[0];

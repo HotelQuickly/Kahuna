@@ -6,4 +6,5 @@ parameters:
 		isSandbox: true
 
 services:
-	- \HQ\Kahuna\RequestFactory(%kahuna%)
+	kahunaRequestFactory: \HQ\Kahuna\RequestFactory(%kahuna%)
+    - \HQ\Kahuna\Manager(@kahunaRequestFactory)

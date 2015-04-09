@@ -16,21 +16,18 @@ parameters:
 		authPassword: abc #sandbox
 		isSandbox: true
 services:
-	- HQ\Kahuna\RequestFactory(%kahuna%)
+	kahunaRequestFactory: \HQ\Kahuna\RequestFactory(%kahuna%)
+    - \HQ\Kahuna\Manager(@kahunaRequestFactory)
 ```
 
 ### Usage
 ```php
-/** @var \HQ\Kahuna\RequestFactory */
-private $kahunaRequestFactory;
+/** @var \HQ\Kahuna\Manager */
+private $kahunaManager;
 
-/** @var \HQ\Kahuna\Sender */
-private $kahunaSender;
-
-$request = $this->kahunaRequestFactory
-    ->create(\HQ\Kahuna\RequestFactory::PUSH)
-    ->setPayload('john.doe@gmail.com', 'Hello test push!');
-$response = $this->kahunaSender->send($request);
+$response = $this->kahunaManager->send(RequestFactory::PUSH, function (Push $request) {
+	$request->setPayload('john.doe@hotmail.com', 'Hello test push!');
+});
 ```
 
 ### How to add new Request

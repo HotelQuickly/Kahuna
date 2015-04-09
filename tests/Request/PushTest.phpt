@@ -2,8 +2,8 @@
 
 namespace Tests;
 
+use HQ\Kahuna\Request\Push;
 use HQ\Kahuna\RequestFactory;
-use HQ\Kahuna\Sender;
 use Nette;
 use Tester;
 use Tester\Assert;
@@ -15,32 +15,28 @@ require __DIR__ . '/../BaseTestCase.php';
  */
 class PushTest extends BaseTestCase
 {
-	/** @var  \HQ\Kahuna\RequestFactory */
-	private $kahunaRequestFactory;
-
-	/** @var  Sender */
-	private $kahunaSender;
+	/** @var  \HQ\Kahuna\Manager */
+	private $kahunaManager;
 
 	public function setUp()
 	{
-		$this->kahunaRequestFactory = $this->container->getByType('\HQ\Kahuna\RequestFactory');
-		$this->kahunaSender = new Sender();
+		$this->kahunaManager = $this->container->getByType('\HQ\Kahuna\Manager');
 	}
 
 	public function testThrowExceptionWhenUserNotFound()
 	{
-		$request = $this->kahunaRequestFactory->create(RequestFactory::PUSH)
-			->setPayload('987abc_1234_xyz@hotelquickly.com', 'Hello test from BYTE!');
-		Assert::exception(function() use ($request) {
-			$this->kahunaSender->send($request);
-		}, 'HQ\Kahuna\Exception');
+		Assert::exception(function() {
+			$this->kahunaManager->send(RequestFactory::PUSH, function(Push $request) {
+				$request->setPayload('987abc_1234_xyz@hotelquickly.com', 'Hello test from BYTE!');
+			});
+		}, '\Exception');
 	}
 
 	public function testSendPushNotificationSuccessful()
 	{
-		$request = $this->kahunaRequestFactory->create(RequestFactory::PUSH)
-			->setPayload('geemney@hotmail.com', 'Hello test from BYTE!');
-		$response = $this->kahunaSender->send($request);
+		$response = $this->kahunaManager->send(RequestFactory::PUSH, function (Push $request) {
+			$request->setPayload('geemney@hotmail.com', 'Hello test from BYTE!');
+		});
 		Assert::true($response->success);
 	}
 }

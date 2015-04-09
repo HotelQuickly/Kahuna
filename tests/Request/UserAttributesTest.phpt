@@ -2,8 +2,8 @@
 
 namespace Tests;
 
+use HQ\Kahuna\Request\UserAttributes;
 use HQ\Kahuna\RequestFactory;
-use HQ\Kahuna\Sender;
 use Nette;
 use Tester;
 use Tester\Assert;
@@ -15,31 +15,28 @@ require __DIR__ . '/../BaseTestCase.php';
  */
 class UserAttributesTest extends BaseTestCase
 {
-	/** @var  \HQ\Kahuna\RequestFactory */
-	private $kahunaRequestFactory;
-
-	/** @var  Sender */
-	private $kahunaSender;
+	/** @var  \HQ\Kahuna\Manager */
+	private $kahunaManager;
 
 	public function setUp()
 	{
-		$this->kahunaRequestFactory = $this->container->getByType('\HQ\Kahuna\RequestFactory');
-		$this->kahunaSender = new Sender();
+		$this->kahunaManager = $this->container->getByType('\HQ\Kahuna\Manager');
 	}
 
 	public function testUpdateUserAttributes()
 	{
-		$request = $this->kahunaRequestFactory->create(RequestFactory::USER_ATTRIBUTES)
+		$response = $this->kahunaManager->send(RequestFactory::USER_ATTRIBUTES, function(UserAttributes $request) {
+			$request
 			->addPayload(
 				0,
 				'geemney@hotmail.com',
-				array('gender'=>'female', 'hobby'=>'Watch movies')
-			)
-			->addPayload(1,
+				array('hobby'=>'Watch movies')
+			)->addPayload(
+				1,
 				'byte.yoyoya@gmail.com',
 				array('booking_cnt'=>'5', 'hobby'=>'Read books')
 			);
-		$response = $this->kahunaSender->send($request);
+		});
 		Assert::true($response->success);
 	}
 }
