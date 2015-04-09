@@ -12,8 +12,8 @@ Add this to your neon
 parameters:
 	kahuna:
 		apiBaseUrl: https://tap-nexus.appspot.com/api
-		authUsername: 8477a36e525d4ec7909096b6fe3273f4 #sandbox
-		authPassword: 220fd16fda334d2cb9723dfe2efc2ffc #sandbox
+		authUsername: abc #sandbox
+		authPassword: abc #sandbox
 		isSandbox: true
 services:
 	- HQ\Kahuna\RequestFactory(%kahuna%)
