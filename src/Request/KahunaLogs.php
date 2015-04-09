@@ -6,7 +6,7 @@ namespace HQ\Kahuna\Request;
  *
  * @author Jakapun Kehachindawat <jakapun.kehachindawat@hotelquickly.com>
  */
-class KahunaLogs extends Request {
+class KahunaLogs extends RequestAbstract {
 
 	protected $url = 'kahunalogs';
 

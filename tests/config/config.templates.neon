@@ -4,3 +4,6 @@ parameters:
 		authUsername: abc123 #sandbox
 		authPassword: abc123 #sandbox
 		isSandbox: true
+
+services:
+	- \HQ\Kahuna\RequestFactory(%kahuna%)

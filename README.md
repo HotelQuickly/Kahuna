@@ -24,14 +24,17 @@ services:
 /** @var \HQ\Kahuna\RequestFactory */
 private $kahunaRequestFactory;
 
+/** @var \HQ\Kahuna\Sender */
+private $kahunaSender;
+
 $request = $this->kahunaRequestFactory
     ->create(\HQ\Kahuna\RequestFactory::PUSH)
     ->setPayload('john.doe@gmail.com', 'Hello test push!');
-$response = $this->kahunaRequestFactory->makeRequest($request);
+$response = $this->kahunaSender->send($request);
 ```
 
 ### How to add new Request
-- 1) Create new file and extends from `Request` abstract class
+- 1) Create new file and extends from `RequestAbstract` class
 - 2) Add new const of request name to `RequestFactory` class
 
 ### How to test

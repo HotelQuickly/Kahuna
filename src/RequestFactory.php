@@ -7,12 +7,24 @@ namespace HQ\Kahuna;
  *
  * @author Jakapun Kehachindawat <jakapun.kehachindawat@hotelquickly.com>
  */
-class RequestFactory extends Core {
+class RequestFactory {
 
 	// These const are Request Names
 	const PUSH = 'Push';
 	const USER_ATTRIBUTES = 'UserAttributes';
 	const KAHUNA_LOGS = 'KahunaLogs';
+
+	/**
+	 * @param array $kahunaSettings
+	 */
+	public function __construct(
+		array $kahunaSettings
+	) {
+		$this->apiBaseUrl = $kahunaSettings['apiBaseUrl'];
+		$this->authUsername = $kahunaSettings['authUsername'];
+		$this->authPassword= $kahunaSettings['authPassword'];
+		$this->isSandbox = $kahunaSettings['isSandbox'];
+	}
 
 	/**
 	 * @param $requestName
@@ -21,6 +33,11 @@ class RequestFactory extends Core {
 	public function create($requestName)
 	{
 		$class = __NAMESPACE__ . '\Request\\' . $requestName;
-		return new $class();
+		return new $class(
+			$this->apiBaseUrl,
+			$this->authUsername,
+			$this->authPassword,
+			$this->isSandbox
+		);
 	}
 }

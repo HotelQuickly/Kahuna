@@ -2,43 +2,25 @@
 
 namespace HQ\Kahuna;
 use HQ\Kahuna\Request\Request;
+use HQ\Kahuna\Request\RequestAbstract;
 
 /**
- * Class Core
+ * Class Sender
  *
  * @author Jakapun Kehachindawat <jakapun.kehachindawat@hotelquickly.com>
  */
-class Core {
+class Sender {
 
-	private $apiBaseUrl;
-	private $authUsername;
-	private $authPassword;
-	private $isSandbox;
-
-	public function __construct(
-		$kahunaSettings
-	) {
-		$this->apiBaseUrl = $kahunaSettings['apiBaseUrl'];
-		$this->authUsername = $kahunaSettings['authUsername'];
-		$this->authPassword= $kahunaSettings['authPassword'];
-		$this->isSandbox = $kahunaSettings['isSandbox'];
-	}
-
-	private function getParamEnv()
+	/**
+	 * @param RequestAbstract $request
+	 * @return mixed
+	 * @throws Exception
+	 */
+	public function send(RequestAbstract $request)
 	{
-		$mode = $this->isSandbox ? 's' : 'p';
-		return 'env=' . $mode;
-	}
-
-	public function makeRequest(Request $request)
-	{
-		$url = $this->apiBaseUrl. '/' .$request->getUrl(). '?' .$this->getParamEnv();
+		$url = $request->getFullRequestUrl();
 		$payload = $request->getPayload();
-
-		$header = array(
-			'Content-Type:application/json',
-			'Authorization: Basic '. base64_encode("{$this->authUsername}:{$this->authPassword}")
-		);
+		$header = $request->getHeader();
 
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
@@ -51,6 +33,11 @@ class Core {
 		return $this->handleResponse($response);
 	}
 
+	/**
+	 * @param $response
+	 * @return mixed
+	 * @throws Exception
+	 */
 	private function handleResponse($response)
 	{
 		$decoded = json_decode($response);

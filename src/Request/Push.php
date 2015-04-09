@@ -6,7 +6,7 @@ namespace HQ\Kahuna\Request;
  *
  * @author Jakapun Kehachindawat <jakapun.kehachindawat@hotelquickly.com>
  */
-class Push extends Request {
+class Push extends RequestAbstract {
 
 	protected $url = 'push';
 

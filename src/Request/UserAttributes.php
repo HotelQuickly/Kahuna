@@ -6,7 +6,7 @@ namespace HQ\Kahuna\Request;
  *
  * @author Jakapun Kehachindawat <jakapun.kehachindawat@hotelquickly.com>
  */
-class UserAttributes extends Request {
+class UserAttributes extends RequestAbstract {
 
 	protected $url = 'userattributes';
 

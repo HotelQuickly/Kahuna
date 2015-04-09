@@ -3,6 +3,7 @@
 namespace Tests;
 
 use HQ\Kahuna\RequestFactory;
+use HQ\Kahuna\Sender;
 use Nette;
 use Tester;
 use Tester\Assert;
@@ -17,10 +18,13 @@ class UserAttributesTest extends BaseTestCase
 	/** @var  \HQ\Kahuna\RequestFactory */
 	private $kahunaRequestFactory;
 
+	/** @var  Sender */
+	private $kahunaSender;
+
 	public function setUp()
 	{
-		$config = $this->container->getParameters();
-		$this->kahunaRequestFactory = new RequestFactory($config['kahuna']);
+		$this->kahunaRequestFactory = $this->container->getByType('\HQ\Kahuna\RequestFactory');
+		$this->kahunaSender = new Sender();
 	}
 
 	public function testUpdateUserAttributes()
@@ -35,7 +39,7 @@ class UserAttributesTest extends BaseTestCase
 				'byte.yoyoya@gmail.com',
 				array('booking_cnt'=>'5', 'hobby'=>'Read books')
 			);
-		$response = $this->kahunaRequestFactory->makeRequest($request);
+		$response = $this->kahunaSender->send($request);
 		Assert::true($response->success);
 	}
 }
