@@ -1,10 +1,8 @@
-parameters:
-	kahuna:
-		apiBaseUrl: https://tap-nexus.appspot.com/api
-		authUsername: abc123 #sandbox
-		authPassword: abc123 #sandbox
-		isSandbox: true
+kahuna:
+	apiBaseUrl: 'https://tap-nexus.appspot.com/api'
+	authUsername: abc
+	authPassword: abc
+	isSandbox: true
 
-services:
-	kahunaRequestFactory: \HQ\Kahuna\RequestFactory(%kahuna%)
-    - \HQ\Kahuna\Manager(@kahunaRequestFactory)
+extensions:
+	kahuna: \HQ\Kahuna\KahunaExtension()

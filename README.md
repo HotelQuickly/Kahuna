@@ -1,28 +1,30 @@
 # Kahuna
 
 ### Installation
-
+1) Add to this repository to composer.json, or run:
 ```sh
 $ composer require hotel-quickly/kahuna:@dev
 ```
+2) Register extension in your bootstrap.php
+```php
+$configurator->onCompile[] = function ($configurator, $compiler) {
+    $compiler->addExtension('kahuna', new \HQ\Kahuna\KahunaExtension());
+};
+```
 
 ### Configuration
-Add this to your neon
+Add this to your config.neon
 ```yml
-parameters:
-	kahuna:
-		apiBaseUrl: https://tap-nexus.appspot.com/api
-		authUsername: abc #sandbox
-		authPassword: abc #sandbox
-		isSandbox: true
-services:
-	kahunaRequestFactory: \HQ\Kahuna\RequestFactory(%kahuna%)
-    - \HQ\Kahuna\Manager(@kahunaRequestFactory)
+kahuna:
+	apiBaseUrl: https://tap-nexus.appspot.com/api
+	authUsername: abc #sandbox
+	authPassword: abc #sandbox
+	isSandbox: true
 ```
 
 ### Usage
 ```php
-/** @var \HQ\Kahuna\Manager */
+/** @var \HQ\Kahuna\Manager @autowire */
 private $kahunaManager;
 
 $response = $this->kahunaManager->send(RequestFactory::PUSH, function (Push $request) {
