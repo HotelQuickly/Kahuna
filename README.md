@@ -1,5 +1,7 @@
 # Kahuna
 
+[![Build Status](https://travis-ci.org/HotelQuickly/Kahuna.svg?branch=master)](https://travis-ci.org/HotelQuickly/Kahuna)
+
 ### Installation
 1) Add to this repository to composer.json, or run:
 ```sh
