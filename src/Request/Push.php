@@ -13,12 +13,14 @@ class Push extends RequestAbstract {
 	/**
 	 * @param $email
 	 * @param $message
+	 * @param array $params
 	 * @return $this
 	 */
-	public function setPayload($email, $message)
+	public function setPayload($email, $message, $params = array())
 	{
 		$this->payload['push_array'][0]['target']['email'] = $email;
 		$this->payload['push_array'][0]['notification']['alert'] = $message;
+		$this->payload['push_array'][0]['params'] = $params;
 
 		return $this;
 	}

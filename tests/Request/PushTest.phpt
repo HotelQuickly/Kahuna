@@ -27,7 +27,7 @@ class PushTest extends BaseTestCase
 	{
 		Assert::exception(function() {
 			$this->kahunaManager->send(RequestFactory::PUSH, function(Push $request) {
-				$request->setPayload('987abc_1234_xyz@hotelquickly.com', 'Hello test from BYTE!');
+				$request->setPayload('987abc_1234_xyz@hotelquickly.com', 'Hello test from BYTE!', ["ticket_id"=>"15"]);
 			});
 		}, '\Exception');
 	}
@@ -35,7 +35,7 @@ class PushTest extends BaseTestCase
 	public function testSendPushNotificationSuccessful()
 	{
 		$response = $this->kahunaManager->send(RequestFactory::PUSH, function (Push $request) {
-			$request->setPayload('geemney@hotmail.com', 'Hello test from BYTE!');
+			$request->setPayload('geemney@hotmail.com', 'Hello test from BYTE!', ["ticket_id"=>"15"]);
 		});
 		Assert::true($response->success);
 	}
