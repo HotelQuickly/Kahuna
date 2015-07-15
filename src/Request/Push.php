@@ -20,7 +20,9 @@ class Push extends RequestAbstract {
 	{
 		$this->payload['push_array'][0]['target']['email'] = $email;
 		$this->payload['push_array'][0]['notification']['alert'] = $message;
-		$this->payload['push_array'][0]['params'] = $params;
+		if ( count($params) ) {
+			$this->payload['push_array'][0]['params'] = $params;	
+		}
 
 		return $this;
 	}
