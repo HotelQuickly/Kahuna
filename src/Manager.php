@@ -27,7 +27,7 @@ class Manager {
 
 	/**
 	 * @param $requestName
-	 * @param callable $callback
+	 * @param \Closure $callback
 	 * @return mixed
 	 */
 	public function send($requestName, \Closure $callback = null)

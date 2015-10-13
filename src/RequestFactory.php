@@ -13,6 +13,7 @@ class RequestFactory {
 	const PUSH = 'Push';
 	const USER_ATTRIBUTES = 'UserAttributes';
 	const KAHUNA_LOGS = 'KahunaLogs';
+	const EMAIL_SYNC = 'EmailSync';
 
 	/**
 	 * @param array $kahunaSettings
