@@ -28,11 +28,9 @@ class UserAttributesTest extends BaseTestCase
 		$response = $this->kahunaManager->send(RequestFactory::USER_ATTRIBUTES, function(UserAttributes $request) {
 			$request
 			->addPayload(
-				0,
 				'geemney@hotmail.com',
 				array('hobby'=>'Watch movies')
 			)->addPayload(
-				1,
 				'byte.yoyoya@gmail.com',
 				array('booking_cnt'=>'5', 'hobby'=>'Read books')
 			);

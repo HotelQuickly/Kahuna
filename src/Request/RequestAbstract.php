@@ -60,6 +60,30 @@ abstract class RequestAbstract {
 	}
 
 	/**
+	 * @param $response
+	 * @return mixed
+	 * @throws \Exception
+	 */
+	public function handleResponse($response)
+	{
+		$decoded = json_decode($response);
+
+		if (empty($decoded)) {
+			throw new \Exception('Unknown response from Kahuna: '. $decoded);
+		}
+
+		$decoded = isset($decoded->success) ? $decoded : $decoded[0];
+
+		if (isset($decoded->success) AND $decoded->success == false) {
+			$errorMsg = $decoded->error;
+			$errorMsg .= (isset($decoded->error_detail) ? ', '.$decoded->error_detail : '');
+			throw new \Exception($errorMsg, $decoded->error_code);
+		}
+
+		return $decoded;
+	}
+
+	/**
 	 * @return string
 	 */
 	private function getParamEnv()
